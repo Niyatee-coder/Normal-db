@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "./supbaseClient";
+import supabase from "./supabaseClient";
 
 export default function App() {
   const [name, setName] = useState("");      // single input value
@@ -21,6 +21,12 @@ export default function App() {
   // DELETE operation
   async function deleteName(id) {
     await supabase.from("people").delete().eq("id", id);
+    fetchNames();
+  }
+
+  // UPDATE operation
+  async function updateName(id, newName) {
+    await supabase.from("people").update({ name: newName }).eq("id", id);
     fetchNames();
   }
 
